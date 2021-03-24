@@ -147,18 +147,6 @@ class App extends React.Component{
     this.investmentClick = this.investmentClick.bind(this);
     this.state = {isActivePage: false, navBar:false, navList:''};
   }
-
-  hideAllPage(){
-    this.setState(state =>{
-      state.newsField ='hidden';
-      state.request ='hidden';
-      state.group ='hidden';
-      state.notication='hidden';
-      state.profile ='hidden';
-      state.menu ='hidden';
-    })
-  }
-  
   
   navbarViewController(){
     this.setState(state =>{(state.navBar)?state.navList='navbarShow':state.navList='';
