@@ -1,238 +1,216 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import Modal from './modal';
+import NavModal from './navModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faBars} from '@fortawesome/free-solid-svg-icons';
 
-class HomePage extends React.Component {
+export default class middleSection extends Component {
+  constructor(props) {
+    super(props);
+    this.onWhatsappClick = this.onWhatsappClick.bind(this);
+    this.onTelegramClick = this.onTelegramClick.bind(this);
+    this.onInstagramClick = this.onInstagramClick.bind(this);
+    this.state = {navIsOpen: false, modalIsOpen: false,  checked: false };
+  }
+
+  toggleNavBar = () => {
+    this.setState({
+      navIsOpen: !this.state.navIsOpen
+    });
+  }
+
+  toggleModal = () => {
+    this.setState({
+      modalIsOpen: !this.state.modalIsOpen
+    });
+  }
+
+  onCheckboxClick =() =>{
+    this.setState({
+      checked: !this.state.checked
+    });
+  }
+
+  onWhatsappClick(){
+    if(this.state.checked){
+      window.open("https://api.whatsapp.com/send?phone=+2347065208250&text=Hi,%20I%20would%20like%20to%20get%20more%20information..", "_blank");
+    }
+  }
+
+  onTelegramClick(){
+    if(this.state.checked){
+    window.open("https://telegram.me/username","_blank");
+    }
+  }
+  
+  onInstagramClick(){
+    if(this.state.checked){
+    window.open("https://www.instagram.com/direct/inbox/","_blank");
+    }
+  }
+  
   render() {
     return (
-      <div>
-        {/* SHOWCASE SECTION******** */}
-        <div className="showcase">
-          <h1>BUSINESS VENTURES</h1>
-          <p>Is a multiple purpose company that generate its revenue from investing
-            in Agriculture, transportation, Consultation and General Merchandise.
-          </p>
-          <button id="showcasbtn">get started</button>
+      <>
+        <div className="navbar">
+          <div className="navbar flex">
+            <div className="logo">
+              <img src="./img/bv-logo.jpg" alt="logo" />
+            </div>
+            <nav>
+              <div><button className="menuBtn" onClick={this.toggleNavBar}>
+                <FontAwesomeIcon icon={faBars} /></button>
+              </div>
+            </nav>
+          </div>
         </div>
+        <NavModal show={this.state.navIsOpen} onClose={this.toggleNavBar}/>
+        {/* HIDDEN MOODAL******** */}
+        <Modal show={this.state.modalIsOpen} checked = {this.state.checked}
+          onCheckboxClick={this.onCheckboxClick} onWhatsappClick={this.onWhatsappClick}
+          onTelegramClick={this.onTelegramClick} onInstagramClick={this.onInstagramClick}
+          onClose={this.toggleModal}>
+        </Modal>
+        
+        {/* SHOWCASE SECTION******** */}
+        <section id="home">
+          <div className="showcase">
+            <h1>BUSINESS VENTURES</h1>
+            <p>Is a multiple purpose company that generate its revenue from investing
+              in Agriculture, transportation, Consultation and General Merchandise.
+            </p>
+            <button id="showcasbtn" onClick={this.toggleModal}>get started</button>
+          </div>
+        </section>
 
         {/* INVESTMENT SECTION **********/}
-        <div class="content-sections">
-          <div class="imgContainer">
-            <img src="./img/investment-img.jpg" alt="investment-images" />
+        <section id="investment">
+          <div>
+            <h4>SELECT ONE OF OUR SERVICE</h4>
           </div>
-          <div class="txtContainer">
-            <h1>INVESTMENT</h1>
-            <p>
-              This is where you INVEST your money with a Guarantee of
-              receiving your capital with a 20% Roi + bonuses for 3 months after
-              which your capital drops on the 4th months, No multiple registration
-              using 1 details.
-              You can top up your INVESTMENTs.<br />
-              ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-            </p>
-            <h3>INTERESTING FEATURES</h3>
-            <ul>
-              <li>
-                No Task.
-              </li>
-              <li>
-                You get paid within 48 hours of withdrawal.
-              </li>
-              <li>
-                Referrals are not Compulsory.
-              </li>
-            </ul>
-            <p> You stand a chance of making more money if you choose to refer</p>
-            <button>get started</button>
+          <div className="grid-content">
+            <div className="imgContainer">
+              <img src="./img/investment-img.jpg" alt="investment-images" />
+            </div>
+            <div className="txtContainer">
+              <h1>INVESTMENT</h1>
+              <p>
+                This is where you INVEST your money with a Guarantee of
+                receiving your capital with a 20% Roi<br /> + bonuses for 3 months after
+                which your capital drops on the 4th months, No multiple registration<br />
+                using 1 details.
+                You can top up your <br />INVESTMENTs.<span>&#9997;&#127996;</span><br />
+                &#128071; &#128071; &#128071; &#128071; &#128071; &#128071;
+              </p>
+              <h3>INTERESTING FEATURES</h3>
+              <ul>
+                <li>
+                  &#129309;No Task.
+                </li>
+                <li>
+                  &#129309;You get paid within 48 hours of withdrawal.
+                </li>
+                <li>
+                  &#129309;Referrals are not Compulsory.
+                </li>
+              </ul>
+              <p> You stand a chance of making more money if you choose to refer</p>
+              <button onClick={this.toggleModal}>get started</button>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* CONSULTANCY SECTION *********************/}
-        <div class="content-sections">
-          <div class="txtContainer">
-            <h1>CONSULTANCY</h1>
-            <p>
-              As Consultants, we specialise on these core areas
-              MOTIVATIONAL SPEAKING
-              JOB ENPLOYMENT
-              SKILLS ACQUISITION
-
-              please feel free to email us @ Businesventur@gmail.com
-            </p>
-
-            <button>get started</button>
-          </div>
-          <div class="imgContainer">
-            <img src="./img/consultancy-img.png" alt="investment-images" />
-          </div>
-          
-        </div>
-        {/*  POKET MONI SECTION **********************/}
-        <div class="content-sections">
-          <div class="imgContainer">
-            <img src="./img/poketMoni-img.jpg" alt="investment-images" />
-          </div>
-          <div class="txtContainer">
-            <h1>POKET MONI</h1>
-            <p>
-              Yes, Poket moni is not only for students, its for everyone.
-              To access this founds of up to 500,000 naira, these Founds are non
-              refundable to the company.
-              You must contact us as soon as possible
-              @
-              Businessventur@gmail.com
-
-              Starting your need and amount needed. if successfull BUSINESS VENTURES
-              will contact you within 2 weeks of application.
-              A non refundable Registration fee is 1000 naira only
-              Multiply Regidtration is allowed.
-            </p>
-            <button>get started</button>
-          </div>
-        </div>
-        {/*  EDUCATION SECTION ********************/}
-        <div class="content-sections">
-          <div class="txtContainer">
-            <h1>EDUCATION</h1>
-            <p>
-              It is part of our responsibilty to give back to the Economy, and so in
-              this Section of Education, we Provide Educational Assistance to RURAL
-              communities(schools) lacking any form of eductional infrastructures
-            </p>
-            <button>get started</button>
-          </div>
-          <div class="imgContainerRight">
-            <img src="./img/eduction-img.jpg" alt="investment-images" />
-          </div>
-        </div>
-        {/* BUSINESS SUPPORT SECTION ****************/}
-        <div class="content-sections">
-          <div class="imgContainer">
-            <img src="./img/businessSupport-img.jpg" alt="investment-images" />
-          </div>
-          <div class="txtContainer">
-            <h1>BUSINESS SUPPORT</h1>
-            <p>
-              Are you a business person, Do you ned support, hurry now and get that
-              needed FINACIAL to boost your business.
-              Contact us at
-              Businesventur@gmail.com
-              None refundable Registration fee is 2000...
-              TNC applies.
-            </p>
-            <button>get started</button>
-          </div>
-        </div>
-        {/* TERMS AND CONDITION SECTION ******************/}
-        <div className="termsAndCondition">
-          <h1>TERMS AND CONDITION</h1>
-          <p>
-            Please read these terms and condition before using any of our services.
-            by accessing or using the services we provide, you agree to be bound by
-            these terms which is conditioned by your compliance with this terms.
-            This terms and conditions applies to all visitors, users and others who
-            access our services. if you disagree with any part of the terms and
-            conditions, please do not access the services.
-          </p>
-        </div>
-      </div>
-    );
-  }
-}
-
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.handleNavControl = this.handleNavControl.bind(this);
-    this.homeClick = this.homeClick.bind(this);
-    this.investmentClick = this.investmentClick.bind(this);
-    this.state = {isActivePage: false, navBar:false, navList:''};
-  }
-  
-  navbarViewController(){
-    this.setState(state =>{(state.navBar)?state.navList='navbarShow':state.navList='';
-    }) 
-  }
-
-  handleNavControl(){
-    this.setState(state => ({
-      navBar: !state.navBar
-    }));
-    this.navbarViewController();
-  }
-
-  homeClick(){
-    this.setState({isActivePage: false});
-  }
-  investmentClick(){
-    this.setState({isActivePage: true});
-  }
-
-  render() {
-    const isActivePage = this.state.isActivePage;
-    let currentPage;
-    if(!isActivePage){
-      currentPage = <HomePage />
-    }else{
-      currentPage = <div className="stillWorking"><h1>Oops...<br />STILL WORKING ON IT !!!</h1></div>;
-    }
-  
-// NAVBAR SECTION *******************************
-   return(
-     <>
-      <div className="navbar flex">
-        <div className="logo">
-          <img src="./img/bv-logo.jpg" alt="logo" />
-        </div>
-        <nav>
-          <button className="menuBtn" onClick={this.handleNavControl}>
-            <svg className="menu" viewBox="0 0 24 24">
-              <path d="M3.8, 6.6h16.4" />
-              <path d="M3.8, 12.6h16.4" />
-              <path d="M3.8, 18.5h16.4" />
-            </svg>
-          </button>
-          <ul id={this.state.navList}>
-            <li onClick = {this.homeClick}>Home</li>
-            <li onClick = {this.investmentClick}>Investment</li>
-            <li onClick = {this.investmentClick}>Consultancy</li>
-            <li id="longTxtNav1" onClick = {this.investmentClick}>Poket Moni</li>
-            <li onClick = {this.investmentClick}>Education</li>
-            <li id="longTxtNav2" onClick = {this.investmentClick}>Business support</li>
-          </ul>
-        </nav>
-      </div>
-      {/* SHOWCASE SECTION *************************/}
-      <div>{currentPage}</div>
-
-      {/* FOOTER SECTION ***************************/}
-      <footer>
-        <div className="footer-content">
-          <div>
-            <div className="footer-logo">
-              <img src="./img/bv-logo.jpg" alt="business-ventures logo" />
-            </div>
-            <div>
+        <section id="consultancy">
+          <div className="grid-content" >
+            <div className="txtContainer">
+              <h1>CONSULTANCY</h1>
               <p>
-                Is a multiple purpose company that generate its revenue<br /> 
-                from investing in Agriculture, transportation, Consultation <br />
-                and General Mechandise.
+                Management CONSULTING<br />
+                As Consultants, we specialise on these core areas<br />
+                MOTIVATIONAL SPEAKING<br />
+                JOB ENPLOYMENT<br />
+                SKILLS ACQUISITION<br /><br />
+
+                please feel free to email us @ Businesventur@gmail.com
               </p>
+
+              <button onClick={this.toggleModal}>get started</button>
+            </div>
+            <div className="imgContainer">
+              <img src="./img/consultancy-img.png" alt="investment-images" />
             </div>
           </div>
-          <div>
-            <h3>QUICK LINK</h3>
-            <a href="#">Investment</a><br />
-            <a href="#">Consultancy</a><br />
-            <a href="#">Poket Moni</a><br />
-            <a href="#">Education</a><br />
-            <a href="#">Business support</a>
+        </section>
+
+        {/*  POKET MONI SECTION **********************/}
+        <section id="poketMoni">
+          <div className="grid-content">
+            <div className="imgContainer">
+              <img src="./img/poketMoni-img.jpg" alt="investment-images" />
+            </div>
+            <div className="txtContainer">
+              <h1>POKET MONI</h1>
+              <p>
+                Yes, Poket moni is not only for students, its for everyone.<br />
+                To access this founds of up to 500,000 naira, these<br /> Founds are non
+                refundable to the company.<br />
+                You must contact us as soon as possible<br />
+                @<br />
+                Businessventur@gmail.com<br /><br />
+
+                Starting your need and amount needed. if <br />
+                successfull BUSINESS VENTURES will contact you <br />
+                within 2 weeks of application.<br />
+                A non refundable Registration fee is 1000 naira<br />
+                only &#129309;<br />
+                Multiply Regidtration is allowed.
+              </p>
+              <button onClick={this.toggleModal}>get started</button>
+            </div>
           </div>
-        </div>
-        <p className="bottomContainer">Copyright &copy; All right reserved</p>
-      </footer>
-    </>
+        </section>
+        {/*  EDUCATION SECTION ********************/}
+        <section id="education">
+          <div className="grid-content">
+            <div className="txtContainer">
+              <h1>EDUCATION</h1>
+              <p>
+                It is part of our responsibilty to give back to the Economy, and so in
+                this Section of Education, we Provide Educational Assistance to RURAL
+                communities(schools) lacking any form of<br /> eductional infrastructures
+              </p>
+              <button onClick={this.toggleModal}>get started</button>
+            </div>
+            <div className="imgContainer">
+              <img src="./img/eduction-img.jpg" alt="investment-images" />
+            </div>
+          </div>
+        </section>
+
+        {/* BUSINESS SUPPORT SECTION ****************/}
+        <section id="businessSupport">
+          <div className="grid-content">
+            <div className="imgContainer">
+              <img src="./img/businessSupport-img.jpg" alt="investment-images" />
+            </div>
+            <div className="txtContainer">
+              <h1>BUSINESS SUPPORT</h1>
+              <p>
+                Are you a business person, Do you ned support, hurry<br />
+                now and get that needed FINACIAL to<br /> 
+                boost your business.<br /><br />
+                Contact us at<br />
+                Businesventur@gmail.com<br />
+                None refundable Registration fee is 2000...<br />
+                TNC applies.
+              </p>
+              <button onClick={this.toggleModal}>get started</button>
+            </div>
+          </div>
+        </section>
+      </>
     );
   }
 }
 
-export default App;
